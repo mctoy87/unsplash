@@ -1,0 +1,18 @@
+.download {
+  width: 30px;
+  height: 30px;
+}
+
+@media (min-width: 480px) {
+  .download {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .download {
+    width: 30px;
+    height: 30px;
+  }
+}

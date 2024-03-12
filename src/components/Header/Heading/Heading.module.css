@@ -1,0 +1,26 @@
+.heading {
+  order: 1;
+  grid-column: 1/4;
+  text-align: center;
+  font-size: 22px;
+}
+
+@media (min-width: 768px) {
+  .heading {
+    order: 0;
+    grid-column: auto;
+    text-align: center;
+    font-size: 26px;
+  }
+}
+
+.visually_hidden {
+  position: absolute;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
