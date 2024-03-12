@@ -1,0 +1,41 @@
+.item {
+  flex: 0 1 250px;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.likeWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 480px) {
+  .item {
+    flex: 0 1 550px;
+    padding: 30px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .item {
+    flex: 0 1 660px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .item {
+    flex: 0 1 250px;
+    padding: 10px;
+  }
+
+  .date {
+    font-size: 8px;
+  }
+}

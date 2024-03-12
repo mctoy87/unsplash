@@ -1,0 +1,59 @@
+.linkAvatar {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: hidden;
+}
+.avatar {
+  width: 40px; /* уменьшаем ширину блока чтобы сделать его круглым */
+  height: 40px; /* установим высоту равной ширине для создания круглого блока */
+  padding: 1px;
+  border: 1px solid red;
+  border-radius: 50%; /* делаем изображение круглым */
+}
+.avatarName {
+  overflow: hidden;
+  text-overflow: ellipsis; /*для отображения многоточия, чтобы указать, что контент обрезан из-за переполнения*/
+  white-space: nowrap;
+  width: 100%;
+  font-size: 8px;
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .avatar {
+    width: 70px; /* уменьшаем ширину блока чтобы сделать его круглым */
+    height: 70px; /* установим высоту равной ширине для создания круглого блока */
+    object-fit: cover; /* обрезать изображение в соответствии с размерами контейнера */
+    padding: 2px;
+  }
+
+  .avatarName {
+    font-size: 8px;
+  }
+  .linkAvatar {
+    top: 50px;
+    left: 50px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .avatar {
+    width: 40px; /* уменьшаем ширину блока чтобы сделать его круглым */
+    height: 40px; /* установим высоту равной ширине для создания круглого блока */
+    padding: 1px;
+  }
+
+  .avatarName {
+    font-size: 8px;
+  }
+  .linkAvatar {
+    top: 15px;
+    left: 15px;
+  }
+}
