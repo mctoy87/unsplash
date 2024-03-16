@@ -5,7 +5,7 @@ export const useToken = (state) => {
   console.log('token: ', token);
 
   useEffect(() => {
-    if (location.pathname.includes('/code')) {
+    if (location.search.includes('code')) {
       const token = new URLSearchParams(location.search);
       console.log('token: ', token);
       setToken(token);
