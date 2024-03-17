@@ -1,6 +1,6 @@
 import style from './List.module.css';
 import Photo from './Photo';
-import {generateRandomId} from '../../../utils/generateRandomId';
+// import {generateRandomId} from '../../../utils/generateRandomId';
 
 
 export const List = () => {
@@ -39,7 +39,7 @@ export const List = () => {
     },
   ];
 
-  console.log('generateRandomId: ', generateRandomId());
+  // console.log('generateRandomId: ', generateRandomId());
 
   return (
     <ul className={style.list}>

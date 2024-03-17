@@ -2,12 +2,12 @@ import {useEffect, useState} from 'react';
 
 export const useToken = (state) => {
   const [token, setToken] = useState(state);
-  console.log('token: ', token);
 
   useEffect(() => {
     if (location.search.includes('code')) {
-      const token = new URLSearchParams(location.search);
-      console.log('token: ', token);
+      const locationSearch = new URLSearchParams(location.search).toString();
+      console.log('locationSearch: ', locationSearch);
+      const token = new URLSearchParams(location.search).get('code');
       setToken(token);
     }
   }, []);
