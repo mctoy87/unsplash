@@ -1,8 +1,14 @@
 import style from './Image.module.css';
-import nophoto from './img/nophoto.png';
+import PropTypes from 'prop-types';
+// import nophoto from './img/nophoto.png';
 
-export const Image = (title) => (
+export const Image = ({title, urls}) => (
   <a className={style.linkImage} href='#photo'>
-    <img className={style.img} src={nophoto} alt={title}/>
+    <img className={style.img} src={urls} alt={title}/>
   </a>
 );
+
+Image.propTypes = {
+  title: PropTypes.string,
+  urls: PropTypes.string,
+};
