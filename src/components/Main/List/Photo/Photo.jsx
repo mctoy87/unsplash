@@ -19,7 +19,7 @@ export const Photo = ({photoData}) => {
 
   return (
     <li className={style.item}>
-      <Image title={title} urls={urls.regular}/>
+      <Image title={title} urls={urls.regular} author={author} likes={likes}/>
       <Avatar author={author}/>
 
       <div className={style.likeWrap}>
