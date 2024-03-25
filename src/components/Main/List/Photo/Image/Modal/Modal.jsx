@@ -3,10 +3,34 @@ import PropTypes from 'prop-types';
 import {ReactComponent as CloseIcon} from './img/close.svg';
 import Like from '../../Like';
 import ReactDOM from 'react-dom';
+import {useEffect, useRef} from 'react';
 
-export const Modal = ({href, title, author, likes}) => (
-  ReactDOM.createPortal(
-    <div className={style.overlay}>
+export const Modal = ({href, title, author, likes, closeModal}) => {
+  const overlayRef = useRef(null);
+  const closeModalRef = useRef(null);
+
+  const handleClick = (e) => {
+    const target = e.target;
+    if (target === overlayRef.current ||
+        // закрывает модалку при клике на крестик
+        closeModalRef.current.contains(target) ||
+        // закрывает модалку при клике на Esc
+        e.code === 'Escape') {
+      closeModal();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    document.addEventListener('keydown', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handleClick);
+    };
+  }, []);
+
+  return ReactDOM.createPortal(
+    <div className={style.overlay} ref={overlayRef}>
       <div className={style.modal}>
         <h2 className={style.title}>{title}</h2>
         <div className={style.content}>
@@ -23,18 +47,19 @@ export const Modal = ({href, title, author, likes}) => (
           </a>
           <Like likes={likes}/>
         </div>
-        <button className={style.close}>
+        <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
         </button>
       </div>
     </div>,
     document.getElementById('modal-root'),
-  )
-);
+  );
+};
 
 Modal.propTypes = {
   href: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.object,
   likes: PropTypes.number,
+  closeModal: PropTypes.func,
 };

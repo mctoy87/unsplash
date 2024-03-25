@@ -17,7 +17,15 @@ export const Image = ({title, urls, author, likes}) => {
         <img className={style.img} src={urls} alt={title}/>
       </a>
       {IsModalOpen &&
-        <Modal href={urls} title={title} author={author} likes={likes}/>
+        <Modal
+          href={urls}
+          title={title}
+          author={author}
+          likes={likes}
+          closeModal={() => {
+            setIsModalOpen(false);
+          }}
+        />
       }
     </>
   );
