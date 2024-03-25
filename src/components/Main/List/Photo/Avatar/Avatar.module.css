@@ -26,6 +26,7 @@
   text-align: center;
   background-color: var(--orange);
   border-radius: 10px;
+  color: blue;
 }
 
 @media (min-width: 480px) {
