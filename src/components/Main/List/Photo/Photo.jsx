@@ -6,7 +6,6 @@ import Like from './Like';
 import Download from './Download';
 import PropTypes from 'prop-types';
 
-// created_at, id, likes, urls, user
 export const Photo = ({photoData}) => {
   const {
     alt_description: title,
@@ -15,15 +14,22 @@ export const Photo = ({photoData}) => {
     created_at: date,
     urls,
     links,
+    id,
   } = photoData;
 
   return (
     <li className={style.item}>
-      <Image title={title} urls={urls.regular} author={author} likes={likes}/>
+      <Image
+        title={title}
+        urls={urls.regular}
+        author={author}
+        likes={likes}
+        id={id}
+      />
       <Avatar author={author}/>
 
       <div className={style.likeWrap}>
-        <Like likes={likes}/>
+        <Like likes={likes} id={id}/>
         <time className={style.date} dateTime={date}>{formatDate(date)}</time>
         <Download links={links}/>
       </div>

@@ -2,11 +2,11 @@ import style from './List.module.css';
 import Photo from './Photo';
 // import {usePhotos} from '../../../hooks/usePhotos';
 import {useContext} from 'react';
-import {photoContext} from '../../../context/photoContext';
+import {photoListContext} from '../../../context/photoListContext';
 // import {generateRandomId} from '../../../utils/generateRandomId';
 
 export const List = () => {
-  const {photos} = useContext(photoContext);
+  const {photos} = useContext(photoListContext);
 
   return (
     <ul className={style.list}>

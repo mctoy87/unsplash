@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from './Modal';
 // import nophoto from './img/nophoto.png';
 
-export const Image = ({title, urls, author, likes}) => {
+export const Image = ({title, urls, author, likes, id}) => {
   const [IsModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -22,6 +22,7 @@ export const Image = ({title, urls, author, likes}) => {
           title={title}
           author={author}
           likes={likes}
+          id={id}
           closeModal={() => {
             setIsModalOpen(false);
           }}
@@ -36,4 +37,5 @@ Image.propTypes = {
   urls: PropTypes.string,
   author: PropTypes.object,
   likes: PropTypes.number,
+  id: PropTypes.string,
 };

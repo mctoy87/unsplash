@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {URL_API, CLIENT_ID} from '../api/const';
 
-export const usePhotos = () => {
+export const usePhotoList = () => {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {

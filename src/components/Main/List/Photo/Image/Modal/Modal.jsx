@@ -5,7 +5,7 @@ import Like from '../../Like';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef} from 'react';
 
-export const Modal = ({href, title, author, likes, closeModal}) => {
+export const Modal = ({href, title, author, likes, closeModal, id}) => {
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
 
@@ -45,7 +45,7 @@ export const Modal = ({href, title, author, likes, closeModal}) => {
             />
             <p className={style.avatarName}>{author.username}</p>
           </a>
-          <Like likes={likes}/>
+          <Like likes={likes} id={id}/>
         </div>
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
@@ -62,4 +62,5 @@ Modal.propTypes = {
   author: PropTypes.object,
   likes: PropTypes.number,
   closeModal: PropTypes.func,
+  id: PropTypes.string,
 };
