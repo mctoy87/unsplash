@@ -5,3 +5,15 @@
   gap: 30px;
   margin-bottom: 30px;
 }
+
+@media (min-width: 780px) {
+  .list {
+    gap: 15px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .list {
+    gap: 10px;
+  }
+}

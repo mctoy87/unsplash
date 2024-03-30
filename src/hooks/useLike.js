@@ -2,23 +2,19 @@ import {useContext, useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
 import {tokenContext} from '../context/tokenContext';
 
-export const useLike = (id, addlLike) => {
-  const {token} = useContext(tokenContext);
-  // сделал ли пользователь Лайк
-  const [isLiked, setIsLiked] = useState(false);
+export const useLike = (id, isLiked) => {
   console.log('isLiked: ', isLiked);
-  // прошел ли запрос к серверу по id
-  const [isFirstRequest, setIsFirstRequest] = useState(false);
+  const {token} = useContext(tokenContext);
   // кол-во лайков вместе с лайком пользователя
   const [newLikes, setNewLikes] = useState(null);
   // данные фотографии, полученной с id
   const [data, setData] = useState({});
 
   useEffect(() => {
-    if (!token || isFirstRequest || !isLiked) return;
+    if (!token || (isLiked === null)) return;
     console.log('Searching Like');
 
-    if (addlLike) {
+    if (isLiked) {
       fetch(`${URL_API}/photos/${id}/like`, {
         method: 'POST',
         headers: {
@@ -37,8 +33,6 @@ export const useLike = (id, addlLike) => {
           console.log('photo: ', photo);
           setData(photo);
           setNewLikes(photo.likes);
-          setIsLiked(false);
-          setIsFirstRequest(true);
         })
         .catch(err => {
           console.log('err: ', err);
@@ -65,8 +59,8 @@ export const useLike = (id, addlLike) => {
           console.log('err: ', err);
         });
     }
-  });
-  return [isLiked, newLikes, setIsLiked, isFirstRequest, data];
+  }, [isLiked]);
+  return [newLikes, data];
 };
 
 

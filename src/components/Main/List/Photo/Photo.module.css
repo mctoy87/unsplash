@@ -1,5 +1,5 @@
 .item {
-  flex: 0 1 250px;
+  flex: 0 1 300px;
   padding: 10px;
   position: relative;
   display: flex;
@@ -14,7 +14,7 @@
 
 @media (min-width: 480px) {
   .item {
-    flex: 0 1 550px;
+    flex: 0 1 410px;
     padding: 30px;
   }
 
@@ -23,15 +23,34 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 576px) {
   .item {
-    flex: 0 1 660px;
+    flex: 0 1 460px;
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 780px) {
   .item {
-    flex: 0 1 250px;
+    flex: 0 1 330px;
+    padding: 10px;
+  }
+}
+
+
+@media (min-width: 980px) {
+  .item {
+    flex: 0 1 300px;
+    padding: 10px;
+  }
+
+  .date {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .item {
+    flex: 0 1 420px;
     padding: 10px;
   }
 

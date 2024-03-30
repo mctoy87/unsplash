@@ -2,17 +2,19 @@ import style from './Like.module.css';
 import {ReactComponent as LikeIcon} from './img/like.svg';
 import PropTypes from 'prop-types';
 import {useLike} from '../../../../../hooks/useLike';
-import {useState} from 'react';
+import {useContext} from 'react';
+import {likeContext} from '../../../../../context/likeContext';
 
 export const Like = ({likes, id}) => {
-  // нужно добавить или удалить лайк?
-  const [addlLike, setAddLike] = useState(null);
-  // кол-во лайков с пользователем, лайкнул ли, был ли 1ый запрос
-  const [isLiked, newLikes, isFirstRequest] = useLike(id, addlLike);
+  // поставил ли пользователь лайк
+  const {isLiked, setIsLiked} = useContext(likeContext);
+  console.log('isLiked: ', isLiked);
+  // кол-во лайков с пользователем
+  const [newLikes] = useLike(id, isLiked);
+  console.log('newLikes: ', newLikes);
 
   const toggleLike = () => {
-    !addlLike ? setAddLike(true) : setAddLike(false);
-    console.log('isLiked: ', isLiked);
+    isLiked ? setIsLiked(false) : setIsLiked(true);
   };
 
   return (
@@ -26,7 +28,7 @@ export const Like = ({likes, id}) => {
         <LikeIcon/>
         {/* Если запрос к серверу на добавление лайка пользователя прошел то */}
         {/* показываем новый лайк */}
-        {isFirstRequest ? (<p className={style.likeCounter}>{newLikes}</p>) : (
+        {newLikes ? (<p className={style.likeCounter}>{newLikes}</p>) : (
           <p className={style.likeCounter}>{likes}</p>
         )}
       </button>

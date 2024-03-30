@@ -5,9 +5,14 @@ import Like from '../../Like';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef} from 'react';
 
-export const Modal = ({href, title, author, likes, closeModal, id}) => {
+import {usePhoto} from '../../../../../../hooks/usePhoto';
+
+export const Modal = ({photoData, closeModal}) => {
+  const {urls, alt_description: title, user: author, likes, id} = photoData;
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
+  const [data, setData] = usePhoto(id);
+  console.log('data: ', data);
 
   const handleClick = (e) => {
     const target = e.target;
@@ -26,6 +31,7 @@ export const Modal = ({href, title, author, likes, closeModal, id}) => {
     return () => {
       document.removeEventListener('click', handleClick);
       document.removeEventListener('keydown', handleClick);
+      setData({});
     };
   }, []);
 
@@ -34,7 +40,7 @@ export const Modal = ({href, title, author, likes, closeModal, id}) => {
       <div className={style.modal}>
         <h2 className={style.title}>{title}</h2>
         <div className={style.content}>
-          <img className={style.img} src={href} alt={title}/>
+          <img className={style.img} src={urls.full} alt={title}/>
         </div>
         <div className={style.authorWrap}>
           <a className={style.linkAvatar} href={author.links.self}>
@@ -45,7 +51,9 @@ export const Modal = ({href, title, author, likes, closeModal, id}) => {
             />
             <p className={style.avatarName}>{author.username}</p>
           </a>
-          <Like likes={likes} id={id}/>
+          {data?.likes ? (<Like likes={data.likes} id={id}/>) : (
+            <Like likes={likes} id={id}/>
+          )}
         </div>
         <button className={style.close} ref={closeModalRef}>
           <CloseIcon/>
@@ -57,10 +65,5 @@ export const Modal = ({href, title, author, likes, closeModal, id}) => {
 };
 
 Modal.propTypes = {
-  href: PropTypes.string,
-  title: PropTypes.string,
-  author: PropTypes.object,
-  likes: PropTypes.number,
-  closeModal: PropTypes.func,
-  id: PropTypes.string,
+  photoData: PropTypes.object,
 };

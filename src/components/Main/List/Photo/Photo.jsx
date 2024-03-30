@@ -8,24 +8,16 @@ import PropTypes from 'prop-types';
 
 export const Photo = ({photoData}) => {
   const {
-    alt_description: title,
     user: author,
     likes,
     created_at: date,
-    urls,
     links,
     id,
   } = photoData;
 
   return (
     <li className={style.item}>
-      <Image
-        title={title}
-        urls={urls.regular}
-        author={author}
-        likes={likes}
-        id={id}
-      />
+      <Image photoData={photoData}/>
       <Avatar author={author}/>
 
       <div className={style.likeWrap}>
