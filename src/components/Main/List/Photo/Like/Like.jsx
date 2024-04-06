@@ -23,7 +23,7 @@ export const Like = ({likes, id}) => {
         className={style.linkLike}
         type='button'
         aria-label='Лайкнуть фото'
-        onClick={() => toggleLike()}
+        onClick={() => handleLikeClick()}
       >
         <LikeIcon/>
         {/* Если запрос к серверу на добавление лайка пользователя прошел то */}
