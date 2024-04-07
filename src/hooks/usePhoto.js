@@ -37,3 +37,5 @@ export const usePhoto = (id) => {
   }, []);
   return [data, setData];
 };
+
+
