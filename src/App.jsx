@@ -1,7 +1,6 @@
 import Header from './components/Header';
 import {Main} from './components/Main/Main';
 import {AuthContextProvider} from './context/authContext';
-import {LikeContextProvider} from './context/likeContext';
 import {PhotoListContextProvider} from './context/photoListContext';
 import {TokenContextProvider} from './context/tokenContext';
 
@@ -10,10 +9,8 @@ function App() {
     <TokenContextProvider>
       <AuthContextProvider>
         <PhotoListContextProvider>
-          <LikeContextProvider>
-            <Header></Header>
-            <Main/>
-          </LikeContextProvider>
+          <Header></Header>
+          <Main/>
         </PhotoListContextProvider>
       </AuthContextProvider>
     </TokenContextProvider>
