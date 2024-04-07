@@ -5,7 +5,8 @@ import {useLikeData} from '../../../../../hooks/useLikeData';
 
 export const Like = ({likes, id}) => {
   // кол-во лайков с пользователем, лайкнул ли, был ли 1ый запрос
-  const [newLikes, isLiked, handleLikeClick] = useLikeData(id);
+  const [newLikes, handleLikeClick] = useLikeData();
+  console.log('newLikes: ', newLikes);
 
   return (
     <div className={style.like}>
@@ -13,12 +14,12 @@ export const Like = ({likes, id}) => {
         className={style.linkLike}
         type='button'
         aria-label='Лайкнуть фото'
-        onClick={() => handleLikeClick()}
+        onClick={() => handleLikeClick(id)}
       >
         <LikeIcon/>
         {/* Если запрос к серверу на добавление лайка пользователя прошел то */}
         {/* показываем новый лайк */}
-        {isLiked ? (<p className={style.likeCounter}>{newLikes}</p>) : (
+        {newLikes ? (<p className={style.likeCounter}>{newLikes}</p>) : (
           <p className={style.likeCounter}>{likes}</p>
         )}
       </button>
