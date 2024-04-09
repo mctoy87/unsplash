@@ -1,15 +1,17 @@
-import {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import style from './Auth.module.css';
 import login from './img/login.svg';
 import PropTypes from 'prop-types';
 import {urlAuth} from '../../../api/auth';
-import {authContext} from '../../../context/authContext';
-import {tokenContext} from '../../../context/tokenContext';
+
 // *экспериментирую с REDUX*
 // получаю хук стор
 import {useSelector, useDispatch} from 'react-redux';
 // получаю генератор экшенов
-import {updatePhotoList} from '../../../store';
+import {fetchToken, updatePhotoList} from '../../../store';
+import {deleteToken} from '../../../store';
+import {authContext} from '../../../context/authContext';
+import {setAuthCode} from '../../../store';
 
 
 export const Auth = () => {
@@ -17,14 +19,40 @@ export const Auth = () => {
   const {auth, clearAuth} = useContext(authContext);
   // флаг откр/закр кнопку выхода
   const [isShowLogout, setIsShowLogout] = useState(false);
-  // убрать кнопку выхода при выходе получим ИЗ КОНТЕКСТА
-  const {delToken} = useContext(tokenContext);
+
   // *экспериментирую с REDUX*
   // достаю значение из стора Redux
   const value = useSelector(state => state.photoList);
   console.log('value: ', value);
   // получаю диспетчер чтобы менять стор Redux
   const dispatch = useDispatch();
+  const code = useSelector((state) => state.code);
+  console.log('code: ', code);
+
+  // получать `code` и отправлять его в стор Redux
+  useEffect(() => {
+    // если в параметрах строки есть 'code'
+    if (location.search.includes('code')) {
+      // то достаем его из параметров
+      const code = new URLSearchParams(location.search).get('code');
+      console.log('code: ', code);
+      // Сохраняем полученный code в store
+      dispatch(setAuthCode(code));
+    }
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const code = urlParams.get('code');
+    // if (code) {
+    //   dispatch(setAuthCode(code));
+    //   // dispatch(fetchToken(code));
+    // }
+  }, [dispatch]);
+
+  // Вызовем thunk (получения токена) для Redux
+  useEffect(() => {
+    if (code) {
+      dispatch(fetchToken(code));
+    }
+  }, [code, dispatch]);
 
   const getOut = () => {
     setIsShowLogout(!isShowLogout);
@@ -34,7 +62,7 @@ export const Auth = () => {
   };
   // удалить токен и очистить данные пользователя при выходе
   const logOut = () => {
-    delToken();
+    dispatch(deleteToken()); // Удаляем токен из стора и localStorage
     clearAuth();
   };
 

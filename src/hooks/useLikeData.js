@@ -1,9 +1,9 @@
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import {useSelector} from 'react-redux';
 
 export const useLikeData = () => {
-  const {token} = useContext(tokenContext);
+  const token = useSelector((state) => state.token);
   //  сделал ли пользователь Лайк
   const [isLiked, setIsLiked] = useState(null);
   // кол-во лайков вместе с лайком пользователя
