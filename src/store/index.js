@@ -1,6 +1,6 @@
 // import {applyMiddleware} from 'redux';
 // export const store = createStore()
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {composeWithDevTools} from '@redux-devtools/extension';
 import {thunk} from 'redux-thunk';
 import {
@@ -10,40 +10,28 @@ import {
   GRANT_TYPE,
   SECRET_KEY,
 } from '../api/const';
+
 import {setToken} from '../api/token';
 
-const initialState = {
-  photoList: 'Здесь будут твои фоточки',
-  token: '',
-  code: '',
-};
+import {
+  DELETE_TOKEN,
+  UPDATE_TOKEN,
+  updateToken
+} from './token/tokenActions';
 
-// *экспериментирую с REDUX*
-// вынесу в константу тип экшена
-const SET_AUTH_CODE = 'SET_AUTH_CODE';
-const UPDATE_PHOTOLIST = 'UPDATE_PHOTOLIST';
-const UPDATE_TOKEN = 'UPDATE_TOKEN';
-const DELETE_TOKEN = 'DELETE_TOKEN';
+import {photoListReducer} from './photoListReducer';
+import {authReducer} from './auth/authReducer';
+import {tokenReducer} from './token/tokenReducer';
 
-// для удобства создадим генератор's экшенов
-export const setAuthCode = (code) => ({
-  type: SET_AUTH_CODE,
-  code,
-});
-export const updatePhotoList = photoList => ({
-  type: UPDATE_PHOTOLIST,
-  photoList,
-});
-export const updateToken = (token) => ({
-  type: 'UPDATE_TOKEN',
-  token,
-});
-export const deleteToken = () => ({
-  type: 'DELETE_TOKEN',
-});
 
+// *### Шаг 2: Выполнение POST запроса и получение токена*
+// Теперь когда у нас есть `code` в нашем Redux store,
+// можем создать thunk, который будет выполнять POST запрос на получение токена
+
+// authActions.js
 export const fetchToken = (code) => (dispatch) => {
   if (code) {
+    // формирование запроса для получения токена
     const searchParams = new URLSearchParams();
     searchParams.append('client_id', CLIENT_ID);
     searchParams.append('client_secret', SECRET_KEY);
@@ -56,6 +44,7 @@ export const fetchToken = (code) => (dispatch) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('FETCHdata: ', data);
+        // Устанавливаем токен в стор
         dispatch(updateToken(data.access_token));
         localStorage.setItem('Bearer', data.access_token);
       });
@@ -73,37 +62,11 @@ export const tokenMiddleware = (store) => (next) => (action) => {
   next(action);
 };
 
-const rootReducer = (state = initialState, action) => {
-  // *экспериментирую с REDUX*
-  // отлавливаем тип экшена
-  switch (action.type) {
-    case SET_AUTH_CODE:
-      return {
-        ...state,
-        code: action.code,
-      };
-    case UPDATE_PHOTOLIST:
-      return {
-        ...state,
-        photoList: action.photoList,
-      };
-    case UPDATE_TOKEN:
-      console.log('action.token: ', action.token);
-      return {
-        ...state,
-        token: action.token,
-      };
-
-    case DELETE_TOKEN:
-      return {
-        ...state,
-        token: '',
-      };
-    // по дефолту возвращаем старый стейт
-    default:
-      return state;
-  }
-};
+const rootReducer = combineReducers({
+  tokenReducer,
+  photoListReducer,
+  authReducer,
+});
 
 
 export const store = createStore(

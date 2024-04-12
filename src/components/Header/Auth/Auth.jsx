@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import style from './Auth.module.css';
 import login from './img/login.svg';
 import PropTypes from 'prop-types';
@@ -8,25 +8,25 @@ import {urlAuth} from '../../../api/auth';
 // получаю хук стор
 import {useSelector, useDispatch} from 'react-redux';
 // получаю генератор экшенов
-import {fetchToken, updatePhotoList} from '../../../store';
-import {deleteToken} from '../../../store';
-import {authContext} from '../../../context/authContext';
-import {setAuthCode} from '../../../store';
+import {fetchToken} from '../../../store';
+import {deleteToken, setAuthCode} from '../../../store/token/tokenActions';
+import {useAuth} from '../../../hooks/useAuth';
+import {updatePhotoList} from '../../../store/photoListReducer';
 
 
 export const Auth = () => {
   // получаем данные авторизованного пользователя или удаляем их ИЗ КОНТЕКСТА
-  const {auth, clearAuth} = useContext(authContext);
+  const [auth, clearAuth] = useAuth();
   // флаг откр/закр кнопку выхода
   const [isShowLogout, setIsShowLogout] = useState(false);
 
   // *экспериментирую с REDUX*
   // достаю значение из стора Redux
-  const value = useSelector(state => state.photoList);
+  const value = useSelector(state => state.photoListReducer.photoList);
   console.log('value: ', value);
   // получаю диспетчер чтобы менять стор Redux
   const dispatch = useDispatch();
-  const code = useSelector((state) => state.code);
+  const code = useSelector((state) => state.tokenReducer.code);
   console.log('code: ', code);
 
   // получать `code` и отправлять его в стор Redux
