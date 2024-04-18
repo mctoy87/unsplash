@@ -11,6 +11,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {deleteToken} from '../../../store/token/tokenActions';
 import {useAuth} from '../../../hooks/useAuth';
 import {updatePhotoList} from '../../../store/photos/photoActions';
+import {setToken} from '../../../api/token';
 
 
 export const Auth = () => {
@@ -36,6 +37,8 @@ export const Auth = () => {
   };
   // удалить токен и очистить данные пользователя при выходе
   const logOut = () => {
+    console.log('удалить токен');
+    setToken('');
     dispatch(deleteToken()); // Удаляем токен из стора и localStorage
     clearAuth();
   };

@@ -1,6 +1,11 @@
 // for authRequestAsync
 import {URL_API} from '../../api/const';
-import {deleteToken, updateToken} from '../token/tokenActions';
+import {
+  deleteToken,
+  tokenRequest,
+  tokenRequestError,
+  tokenRequestSuccess,
+} from '../token/tokenActions';
 import axios from 'axios';
 // for codeRequestAsync
 import {
@@ -50,19 +55,19 @@ export const codeRequestAsync = () => (dispatch, getState) => {
     searchParams.append('code', code);
     searchParams.append('grant_type', GRANT_TYPE);
     const urlToken = `${URL_API_TOKEN}?${searchParams.toString()}`;
-    dispatch({type: 'TOKEN_REQEST'});
+    dispatch(tokenRequest());
 
     axios(urlToken, {method: 'POST'})
       .then(({data}) => {
         console.log('FETCHdata: ', data);
         // Устанавливаем токен в стор
-        dispatch(updateToken(data.access_token));
+        // dispatch(updateToken(data.access_token));
         localStorage.setItem('Bearer', data.access_token);
-        dispatch({type: 'TOKEN_REQEST_SUCCESS'});
+        dispatch(tokenRequestSuccess(data.access_token));
       })
       .catch(err => {
         console.log('err: ', err);
-        dispatch({type: 'TOKEN_REQEST_ERROR'});
+        dispatch(tokenRequestError());
       });
   }
 };
