@@ -18,7 +18,6 @@ export const tokenReducer = (state = initialState, action) => {
         code: action.code,
       };
     case UPDATE_TOKEN:
-      console.log('action.token: ', action.token);
       return {
         ...state,
         token: action.token,

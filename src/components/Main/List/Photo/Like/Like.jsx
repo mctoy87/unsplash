@@ -6,7 +6,6 @@ import {useLikeData} from '../../../../../hooks/useLikeData';
 export const Like = ({likes, id}) => {
   // кол-во лайков с пользователем, лайкнул ли, был ли 1ый запрос
   const [newLikes, handleLikeClick] = useLikeData();
-  console.log('newLikes: ', newLikes);
 
   return (
     <div className={style.like}>

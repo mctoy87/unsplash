@@ -3,7 +3,7 @@ import {URL_API} from '../api/const';
 import {useSelector} from 'react-redux';
 
 export const usePhoto = (id) => {
-  const token = useSelector((state) => state.token);
+  const token = useSelector((state) => state.tokenReducer.token);
   // кол-во лайков вместе с лайком пользователя
   // const [newLikes, setNewLikes] = useState(null);
   // данные фотографии, полученной с id

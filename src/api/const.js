@@ -11,3 +11,4 @@ export const REDIRECT_URI = 'http://192.168.0.103:3000';
 export const SCOPE = 'public read_user read_photos write_likes';
 export const GRANT_TYPE = 'authorization_code';
 export const SECRET_KEY = 'yDOgFZ_CtGksbUhx0ZoW6lsKrZ1ZhLeUaAH2O9Eyc3s';
+

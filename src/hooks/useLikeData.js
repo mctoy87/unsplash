@@ -3,12 +3,11 @@ import {URL_API} from '../api/const';
 import {useSelector} from 'react-redux';
 
 export const useLikeData = () => {
-  const token = useSelector((state) => state.token);
+  const token = useSelector((state) => state.tokenReducer.token);
   //  сделал ли пользователь Лайк
   const [isLiked, setIsLiked] = useState(null);
   // кол-во лайков вместе с лайком пользователя
   const [newLikes, setNewLikes] = useState(0);
-  console.log('newLikes: ', newLikes);
   const [id, setId] = useState('');
 
   const handleLikeClick = (id) => {
@@ -71,7 +70,6 @@ export const useLikeData = () => {
     }
   }, [isLiked]);
 
-  console.log('isLiked: ', isLiked);
   return [newLikes, handleLikeClick];
 };
 
