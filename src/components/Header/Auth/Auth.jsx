@@ -12,11 +12,12 @@ import {deleteToken} from '../../../store/token/tokenActions';
 import {useAuth} from '../../../hooks/useAuth';
 import {updatePhotoList} from '../../../store/photos/photoActions';
 import {setToken} from '../../../api/token';
+import AuthLoader from './AuthLoader';
 
 
 export const Auth = () => {
   // получаем данные авторизованного пользователя или удаляем их ИЗ КОНТЕКСТА
-  const [auth, clearAuth] = useAuth();
+  const [auth, loading, clearAuth] = useAuth();
   // флаг откр/закр кнопку выхода
   const [isShowLogout, setIsShowLogout] = useState(false);
 
@@ -46,7 +47,9 @@ export const Auth = () => {
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (
+        <AuthLoader/>
+      ) : auth.name ? (
         <>
           <button
             className={style.button}

@@ -11,6 +11,7 @@ export const useAuth = () => {
   const auth = useSelector(state => state.authReducer.data);
   // получим ИЗ КОНТЕКСТА токен
   const token = useSelector((state) => state.tokenReducer.token);
+  const loading = useSelector(state => state.authReducer.loading);
   const dispatch = useDispatch();
 
   const code = useSelector((state) => state.tokenReducer.code);
@@ -42,7 +43,7 @@ export const useAuth = () => {
   // очищает данные авторизованного пользователя по необходимости
   const clearAuth = () => dispatch(authLogout());
 
-  return [auth, clearAuth];
+  return [auth, loading, clearAuth];
 };
 
 
