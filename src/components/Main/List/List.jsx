@@ -9,19 +9,14 @@ export const List = () => {
   console.log('photos: ', photos);
 
   return (
-    <>
-      {loading && (
-        <div className={style.loader}>
-          <p >Загрузка данных...</p>
-          <AuthLoader/>
-        </div>)
-      }
-      <ul className={style.list}>
-        {photos && photos.map(data =>
+    <ul className={style.list}>
+      {loading ? (
+        <AuthLoader/>
+      ) :
+        photos.map(data =>
           <Photo key={data.id} photoData={data}/>
         )
-        }
-      </ul>
-    </>
+      }
+    </ul>
   );
 };

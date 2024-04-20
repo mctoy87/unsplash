@@ -1,41 +1,19 @@
-import {useEffect, useState} from 'react';
-import {URL_API} from '../api/const';
-import {useSelector} from 'react-redux';
+import {useEffect} from 'react';
+
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  modalPhotoRequestAsync,
+} from '../store/modalPhoto/modalPhotoActions';
 
 export const usePhoto = (id) => {
-  const token = useSelector((state) => state.tokenReducer.token);
-  // кол-во лайков вместе с лайком пользователя
-  // const [newLikes, setNewLikes] = useState(null);
   // данные фотографии, полученной с id
-  const [data, setData] = useState({});
+  const data = useSelector(state => state.modalPhotoReducer.photo);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!token) return;
-    console.log('Запрос фото c токеном для модалки');
-
-    fetch(`${URL_API}/photos/${id}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        if (response.status === 401) {
-          throw new Error(response.status);
-        }
-      })
-      .then((data) => {
-        console.log('photoData: ', data);
-        setData(data);
-      })
-      .catch(err => {
-        console.log('err: ', err);
-      });
+    dispatch(modalPhotoRequestAsync(id));
   }, []);
-  return [data, setData];
+  return [data];
 };
 
 

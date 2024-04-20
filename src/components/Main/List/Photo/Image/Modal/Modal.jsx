@@ -5,14 +5,17 @@ import Like from '../../Like';
 import ReactDOM from 'react-dom';
 import {useEffect, useRef} from 'react';
 
+import {useDispatch} from 'react-redux';
+import {clearData} from '../../../../../../store/modalPhoto/modalPhotoActions';
 import {usePhoto} from '../../../../../../hooks/usePhoto';
 
 export const Modal = ({photoData, closeModal}) => {
   const {urls, alt_description: title, user: author, likes, id} = photoData;
   const overlayRef = useRef(null);
   const closeModalRef = useRef(null);
-  const [data, setData] = usePhoto(id);
+  const [data] = usePhoto(id);
   console.log('data: ', data);
+  const dispatch = useDispatch();
 
   const handleClick = (e) => {
     const target = e.target;
@@ -31,7 +34,7 @@ export const Modal = ({photoData, closeModal}) => {
     return () => {
       document.removeEventListener('click', handleClick);
       document.removeEventListener('keydown', handleClick);
-      setData({});
+      dispatch(clearData());
     };
   }, []);
 
