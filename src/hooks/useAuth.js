@@ -18,6 +18,7 @@ export const useAuth = () => {
 
   // получать `code` и отправлять его в стор Redux
   useEffect(() => {
+    if (code) return;
     // если в параметрах строки есть 'code'
     if (location.search.includes('code')) {
       // то достаем его из параметров
@@ -29,6 +30,7 @@ export const useAuth = () => {
 
   // Вызовем thunk (получения токена) для Redux
   useEffect(() => {
+    if (token) return;
     if (code) {
       dispatch(codeRequestAsync(code));
     }

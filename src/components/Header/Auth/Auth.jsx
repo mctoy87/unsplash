@@ -12,7 +12,7 @@ import {deleteToken} from '../../../store/token/tokenActions';
 import {useAuth} from '../../../hooks/useAuth';
 import {updatePhotoList} from '../../../store/photos/photoActions';
 import {setToken} from '../../../api/token';
-import AuthLoader from './AuthLoader';
+import AuthLoader from '../../../UI/AuthLoader';
 
 
 export const Auth = () => {
