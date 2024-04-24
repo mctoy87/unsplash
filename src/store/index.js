@@ -7,7 +7,6 @@ import {photoListReducer} from './photos/photoListReducer';
 import {authReducer} from './auth/authReducer';
 import {tokenReducer} from './token/tokenReducer';
 import {likeReducer} from './like/likeReducer';
-import {modalPhotoReducer} from './modalPhoto/modalPhotoReducer';
 
 
 const rootReducer = combineReducers({
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
   photoListReducer,
   authReducer,
   likeReducer,
-  modalPhotoReducer,
 });
 
 

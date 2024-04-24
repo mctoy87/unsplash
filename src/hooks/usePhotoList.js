@@ -10,6 +10,7 @@ export const usePhotoList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('Start async request get PHOTOLIST');
     dispatch(photoListRequestAsync());
   }, [token]);
 

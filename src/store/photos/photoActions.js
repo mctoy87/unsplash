@@ -35,10 +35,9 @@ export const setPage = currentPage => ({
 
 // async action's generator
 export const photoListRequestAsync = () => (dispatch, getState) => {
-  const token = getState().tokenReducer.token;
   const page = getState().photoListReducer.currentPage;
   console.log('page: ', page);
-  if (!token) return;
+  if (!CLIENT_ID) return;
 
   dispatch(photoRequest());
   fetch(`${URL_API}/photos?${page ? `page=${page}` : ''}`, {

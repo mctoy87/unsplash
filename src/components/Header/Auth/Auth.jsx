@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import style from './Auth.module.css';
 import login from './img/login.svg';
-import PropTypes from 'prop-types';
 import {urlAuth} from '../../../api/auth';
 
 // *экспериментирую с REDUX*
 // получаю хук стор
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 // получаю генератор экшенов
 import {deleteToken} from '../../../store/token/tokenActions';
 import {useAuth} from '../../../hooks/useAuth';
-import {updatePhotoList} from '../../../store/photos/photoActions';
 import {setToken} from '../../../api/token';
 import AuthLoader from '../../../UI/AuthLoader';
 
@@ -20,21 +18,11 @@ export const Auth = () => {
   const [auth, loading, clearAuth] = useAuth();
   // флаг откр/закр кнопку выхода
   const [isShowLogout, setIsShowLogout] = useState(false);
-
-  // *экспериментирую с REDUX*
-  // достаю значение из стора Redux
-  // eslint-disable-next-line no-unused-vars
-  const value = useSelector(state => state.photoListReducer.photoList);
-  // console.log('value: ', value);
-
   // получаю диспетчер чтобы менять стор Redux
   const dispatch = useDispatch();
 
   const getOut = () => {
     setIsShowLogout(!isShowLogout);
-    // *экспериментирую с REDUX*
-    // меняю стор Redux передавая action через dispatch
-    dispatch(updatePhotoList(isShowLogout));
   };
   // удалить токен и очистить данные пользователя при выходе
   const logOut = () => {
@@ -54,7 +42,7 @@ export const Auth = () => {
           <button
             className={style.button}
             // меняем флаг на открыть/закрыть кнопку выхода
-            onClick={() => setIsShowLogout(getOut)}
+            onClick={getOut}
           >
             <img
               className={style.img}
@@ -82,9 +70,4 @@ export const Auth = () => {
 
     </div>
   );
-};
-
-Auth.propTypes = {
-  token: PropTypes.string,
-  delToken: PropTypes.func
 };
