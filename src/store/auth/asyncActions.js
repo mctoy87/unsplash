@@ -21,11 +21,8 @@ import {authRequest, authRequestError, authRequestSuccess} from './actions';
 // async action
 export const authRequestAsync = () => (dispatch, getState) => {
   const token = getState().tokenReducer.token;
-  console.log('token в authRequestAsync: ', token);
-  console.log('!token: ', !token);
   if (!token) return;
   dispatch(authRequest());
-  console.log('Прошел запрос в authRequestAsync: ');
   axios(`${URL_API}/me`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -59,9 +56,7 @@ export const codeRequestAsync = () => (dispatch, getState) => {
 
     axios(urlToken, {method: 'POST'})
       .then(({data}) => {
-        console.log('FETCHdata: ', data);
         // Устанавливаем токен в стор
-        // dispatch(updateToken(data.access_token));
         localStorage.setItem('Bearer', data.access_token);
         dispatch(tokenRequestSuccess(data.access_token));
       })

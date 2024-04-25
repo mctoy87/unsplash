@@ -12,9 +12,10 @@ export const useAuth = () => {
   // получим ИЗ КОНТЕКСТА токен
   const token = useSelector((state) => state.tokenReducer.token);
   const loading = useSelector(state => state.authReducer.loading);
+  const code = useSelector((state) => state.tokenReducer.code);
+
   const dispatch = useDispatch();
 
-  const code = useSelector((state) => state.tokenReducer.code);
 
   // получать `code` и отправлять его в стор Redux
   useEffect(() => {
@@ -38,7 +39,6 @@ export const useAuth = () => {
 
   // вызываем async action получения токена
   useEffect(() => {
-    console.log('вызван async request из useAuth');
     dispatch(authRequestAsync());
   }, [token]);
 

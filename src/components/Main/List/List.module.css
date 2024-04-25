@@ -6,6 +6,12 @@
   margin-bottom: 30px;
 }
 
+.end {
+  flex-basis: 100%;
+  height: 30px;
+  border: 2px solid red;
+}
+
 @media (min-width: 780px) {
   .list {
     gap: 15px;

@@ -4,6 +4,8 @@ import {
   PHOTO_REQUEST_SUCCESS,
   UPDATE_PHOTOLIST,
   SET_PAGE,
+  PHOTO_REQUEST_SUCCESS_AFTER,
+  SET_ISLAST,
 } from './photoActions';
 
 const initialState = {
@@ -30,6 +32,13 @@ export const photoListReducer = (state = initialState, action) => {
         photoList: action.photoList,
         error: '',
       };
+    case PHOTO_REQUEST_SUCCESS_AFTER:
+      return {
+        ...state,
+        loading: false,
+        photoList: [...state.photoList, ...action.photoList],
+        error: '',
+      };
     case PHOTO_REQUEST_ERROR:
       return {
         ...state,
@@ -44,7 +53,12 @@ export const photoListReducer = (state = initialState, action) => {
     case SET_PAGE:
       return {
         ...state,
-        currentPage: action.currentPage + 1,
+        currentPage: action.currentPage,
+      };
+    case SET_ISLAST:
+      return {
+        ...state,
+        isLast: true,
       };
     // по дефолту возвращаем старый стейт
     default:
