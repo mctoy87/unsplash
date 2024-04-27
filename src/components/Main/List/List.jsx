@@ -24,10 +24,16 @@ export const List = () => {
         dispatch(photoListRequestAsync());
       }
     }, {
-      rootMargin: '100px',
+      rootMargin: '10px',
     });
 
     observer.observe(endList.current);
+
+    // return () => { // убираем observer при демонтаже LIST
+    //   if (endList.current) {
+    //     observer.unobserve(endList.current);
+    //   }
+    // };
   }, [endList.current]);
 
   return (

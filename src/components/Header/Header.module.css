@@ -1,6 +1,10 @@
 .header {
   padding: 15px 0;
   background-color: var(--greyE6);
+  /* sticky header */
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .flexContainer {

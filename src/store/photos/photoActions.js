@@ -1,4 +1,7 @@
 // описываем все экшены
+import {URL_API, CLIENT_ID} from '../../api/const';
+import {getUniqPhoto} from '../../utils/getUniqPhoto'; // ищет уник. фото
+
 export const PHOTO_REQUEST = 'PHOTO_REQUEST';
 export const PHOTO_REQUEST_SUCCESS = 'PHOTO_REQUEST_SUCCESS';
 export const PHOTO_REQUEST_SUCCESS_AFTER = 'PHOTO_REQUEST_SUCCESS_AFTER';
@@ -6,8 +9,6 @@ export const PHOTO_REQUEST_ERROR = 'PHOTO_REQUEST_ERROR';
 export const UPDATE_PHOTOLIST = 'UPDATE_PHOTOLIST';
 export const SET_PAGE = 'SET_PAGE';
 export const SET_ISLAST = 'SET_ISLAST';
-
-import {URL_API, CLIENT_ID} from '../../api/const';
 
 // создадим action creator`s
 export const photoRequest = () => ({
@@ -49,6 +50,9 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
   const page = getState().photoListReducer.currentPage;
   const loading = getState().photoListReducer.loading;
   const isLast = getState().photoListReducer.isLast;
+  const statePhoto = getState().photoListReducer.photoList;
+  console.log('statePhoto: ', statePhoto);
+
   console.log('page: ', page);
   if (!CLIENT_ID || loading || isLast) return;
 
@@ -64,9 +68,9 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
         console.log('X-Total: ', totalPage);
         const perPage = response.headers.get('X-Per-Page');
         console.log('X-Per-Page: ', perPage);
-        const lastPAge = Math.ceil(totalPage / perPage);
-        console.log('lastPAge: ', lastPAge);
-        if (page === lastPAge) setIsLast();
+        const lastPage = Math.ceil(totalPage / perPage);
+        console.log('lastPage: ', lastPage);
+        if (page === lastPage) setIsLast();
         const Link = response.headers.get('Link');
         console.log('Link: ', Link);
         return response.json();
@@ -78,7 +82,9 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
     .then(photoData => {
       console.log('data: ', photoData);
       if (page > 1) {
-        dispatch(photoRequestSuccessAfter(photoData));
+        // для фильтра уник. фото
+        const uniqArr = getUniqPhoto(photoData, statePhoto);
+        dispatch(photoRequestSuccessAfter(uniqArr));
       } else {
         dispatch(photoRequestSuccess(photoData));
       }

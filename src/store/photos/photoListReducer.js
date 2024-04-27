@@ -16,6 +16,7 @@ const initialState = {
   loading: false,
 };
 
+
 export const photoListReducer = (state = initialState, action) => {
   // отлавливаем тип экшена
   switch (action.type) {

@@ -10,10 +10,11 @@ export const Image = ({photoData}) => {
 
   return (
     <>
-      <a
+      <a href='#photo'
         className={style.linkImage}
-        href='#content'
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
       >
         <img className={style.img} src={urls.small} alt={title}/>
       </a>
