@@ -39,7 +39,7 @@ export const Modal = ({photoData, closeModal}) => {
           <img className={style.img} src={urls.full} alt={title}/>
         </div>
         <div className={style.authorWrap}>
-          <a className={style.linkAvatar} href={author.links.self}>
+          <a className={style.linkAvatar} href={author.links.html}>
             <img
               className={style.avatar}
               src={author.profile_image.medium}
