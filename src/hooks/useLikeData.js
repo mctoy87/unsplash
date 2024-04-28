@@ -17,7 +17,6 @@ export const useLikeData = () => {
 
   const handleLikeClick = (id) => {
     if (!token) return;
-    console.log('Ставим Like или Unlike');
     setId(id);
     setIsLiked(!isLiked);
   };

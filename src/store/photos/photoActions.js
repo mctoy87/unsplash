@@ -51,9 +51,7 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
   const loading = getState().photoListReducer.loading;
   const isLast = getState().photoListReducer.isLast;
   const statePhoto = getState().photoListReducer.photoList;
-  console.log('statePhoto: ', statePhoto);
 
-  console.log('page: ', page);
   if (!CLIENT_ID || loading || isLast) return;
 
   dispatch(photoRequest());
@@ -65,14 +63,9 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
     .then(response => {
       if (response.ok) {
         const totalPage = response.headers.get('X-Total');
-        console.log('X-Total: ', totalPage);
         const perPage = response.headers.get('X-Per-Page');
-        console.log('X-Per-Page: ', perPage);
         const lastPage = Math.ceil(totalPage / perPage);
-        console.log('lastPage: ', lastPage);
         if (page === lastPage) setIsLast();
-        const Link = response.headers.get('Link');
-        console.log('Link: ', Link);
         return response.json();
       }
       if (response.status === 401) {
@@ -80,7 +73,6 @@ export const photoListRequestAsync = () => (dispatch, getState) => {
       }
     })
     .then(photoData => {
-      console.log('data: ', photoData);
       if (page > 1) {
         // для фильтра уник. фото
         const uniqArr = getUniqPhoto(photoData, statePhoto);

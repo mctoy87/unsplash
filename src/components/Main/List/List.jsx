@@ -1,15 +1,12 @@
 import style from './List.module.css';
 import Photo from './Photo';
-// import {usePhotoList} from '../../../hooks/usePhotoList';
 import AuthLoader from '../../../UI/AuthLoader';
 import {useEffect, useRef} from 'react';
 import {useDispatch} from 'react-redux';
 import {photoListRequestAsync} from '../../../store/photos/photoActions';
 import {useSelector} from 'react-redux';
-// import {generateRandomId} from '../../../utils/generateRandomId';
 
 export const List = () => {
-  // const [photos, loading] = usePhotoList();
   const photos = useSelector(state => state.photoListReducer.photoList);
   const loading = useSelector(state => state.photoListReducer.loading);
   const endList = useRef(null); // получает ref
@@ -20,7 +17,6 @@ export const List = () => {
     if (loading) return;
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        console.log('ВИЖУ ВИЖУ ВИЖУ');
         dispatch(photoListRequestAsync());
       }
     }, {

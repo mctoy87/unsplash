@@ -25,12 +25,9 @@ export const likeRequestError = (error) => ({
 export const likeRequestAsync = (id, isLiked, setNewLikes) => (dispatch, getState) => {
   const token = getState().tokenReducer.token;
   if (!token || (isLiked === null) || !id) return;
-  console.log(`Запрос данных фото id=${id} c токеном`);
   dispatch(likeRequest());
   // меняю метод запроса к API по условию
   const method = isLiked ? 'POST' : 'DELETE';
-
-  console.log(`${method} Like id=${id}`);
 
   axios(`${URL_API}/photos/${id}/like`, {
     method: `${method}`,
